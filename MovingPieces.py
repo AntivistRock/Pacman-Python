@@ -13,7 +13,7 @@ class MovingPiece(Piece):
             [self.x, self.y + 1],  # x,   y+1
             [self.x + 1, self.y],  # x+1, y
             [self.x, self.y - 1],  # x,   y-1
-            [self.x - 1, self.y]   # x-1, y
+            [self.x - 1, self.y]  # x-1, y
         ]
 
         random_movement = random.randint(0, 3)
@@ -25,14 +25,11 @@ class MovingPiece(Piece):
 
         target_piece = map_.get(target_x, target_y)
 
-        if not target_piece.is_wall() and \
-                not target_piece.is_ghost() and \
-                not target_piece.is_pill():
+        if not target_piece.is_wall() and not target_piece.is_ghost():
 
-            if target_piece.is_pacman():
-                game.lost()
-            else:
-                map_.move(self, target_piece)
+            # change coordinates to new
+            self.x = target_piece.x
+            self.y = target_piece.y
 
 
 class Pacman(MovingPiece):
@@ -47,15 +44,12 @@ class Pacman(MovingPiece):
             return
 
         if target_piece.is_pill():
-            game.pills_amount -= 1
+            game.pill_collected()
+            map_.pill_collected(target_piece)
 
-        map_.move(self, target_piece)
-
-        if target_piece.is_ghost():
-            game.lost()
-
-        if game.pills_amount == 0:
-            game.win()
+        # change pacman coordinates to new
+        self.x = target_piece.x
+        self.y = target_piece.y
 
     @staticmethod
     def is_pacman():
@@ -85,6 +79,10 @@ class Red(MovingPiece):
         super().__init__(*args)
 
     @staticmethod
+    def get_symbol():
+        return 'R'
+
+    @staticmethod
     def is_ghost():
         return True
 
@@ -92,6 +90,10 @@ class Red(MovingPiece):
 class Blue(MovingPiece):
     def __init__(self, *args):
         super().__init__(*args)
+
+    @staticmethod
+    def get_symbol():
+        return 'B'
 
     @staticmethod
     def is_ghost():
@@ -103,6 +105,10 @@ class Pink(MovingPiece):
         super().__init__(*args)
 
     @staticmethod
+    def get_symbol():
+        return 'P'
+
+    @staticmethod
     def is_ghost():
         return True
 
@@ -110,6 +116,10 @@ class Pink(MovingPiece):
 class Yellow(MovingPiece):
     def __init__(self, *args):
         super().__init__(*args)
+
+    @staticmethod
+    def get_symbol():
+        return 'Y'
 
     @staticmethod
     def is_ghost():

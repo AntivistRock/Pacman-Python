@@ -1,7 +1,7 @@
 from enum import Enum
 
 from config import PACMAN_BASE_POSITION, RED_BASE_POSITION, BLUE_BASE_POSITION, \
-    PINK_BASE_POSITION
+    PINK_BASE_POSITION, YELLOW_BASE_POSITION
 from datastructures import Piece, Empty, Wall, Pill
 from MovingPieces import Pacman, Red, Blue, Pink, Yellow
 
@@ -11,7 +11,7 @@ class MovingPieceType(Enum):
     RED = 1,
     BLUE = 2,
     PINK = 3,
-    # YELLOW = 4
+    YELLOW = 4
 
 
 class MovingPiecesCreator:
@@ -21,7 +21,7 @@ class MovingPiecesCreator:
             MovingPieceType.RED: Red,
             MovingPieceType.BLUE: Blue,
             MovingPieceType.PINK: Pink,
-            # MovingPieceType.YELLOW: Yellow
+            MovingPieceType.YELLOW: Yellow
         }
 
         self._moving_pieces_start_coordinates = {
@@ -29,7 +29,7 @@ class MovingPiecesCreator:
             MovingPieceType.RED: RED_BASE_POSITION,
             MovingPieceType.BLUE: BLUE_BASE_POSITION,
             MovingPieceType.PINK: PINK_BASE_POSITION,
-            # MovingPieceType.YELLOW: Yellow
+            MovingPieceType.YELLOW: YELLOW_BASE_POSITION
         }
 
     def create_moving_piece(self, piece_type: MovingPieceType):
@@ -41,11 +41,7 @@ class MovingPiecesCreator:
 def build_piece(piece: str, x, y) -> Piece:
     if piece == '.':
         return Empty(x, y)
-    if piece == '#' or piece == '-':
+    if piece == '#':
         return Wall(x, y)
-    if piece == '@':
-        return Pacman(x, y)
-    if piece == 'G':
-        return Red(x, y)
-    if piece == 'P':
+    if piece == '*':
         return Pill(x, y)

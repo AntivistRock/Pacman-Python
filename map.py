@@ -1,5 +1,13 @@
+from copy import deepcopy
+
 from datastructures import Piece, Empty
 from tools import build_piece
+
+
+def join_map_and_moving_object(map_, moving_object):
+    x = moving_object.x
+    y = moving_object.y
+    map_[x][y] = moving_object
 
 
 class Map:
@@ -26,14 +34,17 @@ class Map:
     def get(self, x, y) -> Piece:
         return self._map[x][y]
 
-    def move(self, piece: Piece, target: Piece):
+    def pill_collected(self, pill_piece):
+        self._map[pill_piece.x][pill_piece.y] = Empty(
+            pill_piece.x, pill_piece.y
+        )
 
-        self._map[piece.x][piece.y] = Empty(piece.x, piece.y)
-        self._map[target.x][target.y] = piece
-        piece.x = target.x
-        piece.y = target.y
-
-        return True
+    def join_moving_objects_and_background(self, pacman, ghosts):
+        joined_map = deepcopy(self)
+        for object_ in [pacman] + ghosts:
+            # print(object_)
+            join_map_and_moving_object(joined_map._map, object_)
+        return joined_map
 
 
 def create_map(map_array) -> Map:

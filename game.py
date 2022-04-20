@@ -1,3 +1,4 @@
+from config import PILLS_AMOUNT
 from map import Map
 from tools import MovingPiecesCreator, MovingPieceType
 from ui import get_valid_key, SimpleUI
@@ -10,7 +11,7 @@ class Game:
         self._win = False
         self._ui = ui
 
-        self.pills_amount = 3
+        self.pills_amount = PILLS_AMOUNT
 
         moving_objects_creator = MovingPiecesCreator()
 
@@ -18,6 +19,12 @@ class Game:
             moving_objects_creator.create_moving_piece(type_)
             for type_ in MovingPieceType
         ]
+        self.ghosts = dict(
+            zip(
+                ['red', 'blue', 'pink', 'yellow'],
+                self.ghosts
+            )
+        )
 
     def win(self):
         self._game_finished = True
@@ -27,9 +34,15 @@ class Game:
         self._game_finished = True
         self._win = False
 
+    def pill_collected(self):
+        self.pills_amount -= 1
+
     def play(self):
         while not self._game_finished:
-            self._ui.print_(self._map)
+            self._ui.print_(self._map.join_moving_objects_and_background(
+                    self.pacman, list(self.ghosts.values())
+                )
+            )
 
             key = get_valid_key()
             self.move_pacman(key)
@@ -39,11 +52,23 @@ class Game:
         self.end_game()
 
     def _move_ghosts(self):
-        for ghost in self.ghosts:
+        for ghost in self.ghosts.values():
             ghost.move(self._map, self)
+
+        self.check_is_ghost_ate_pacman()
 
     def move_pacman(self, key):
         self.pacman.move(self._map, self, key=key)
+
+        self.check_is_ghost_ate_pacman()
+
+        if self.pills_amount == 0:
+            self.win()
+
+    def check_is_ghost_ate_pacman(self):
+        for ghost in self.ghosts.values():
+            if self.pacman.x == ghost.x and self.pacman.y == ghost.y:
+                self.lost()
 
     def end_game(self):
         # game is over!

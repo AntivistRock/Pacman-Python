@@ -24,7 +24,7 @@ class SimpleUI:
 
                 # if it's a ghost
                 if point.is_ghost():
-                    print('G', end='')
+                    print(point.get_symbol(), end='')
                 # if it's a wall
                 elif point.is_wall():
                     print('#', end='')
@@ -36,7 +36,7 @@ class SimpleUI:
                     print('.', end='')
                 # if it's a pill
                 elif point.is_pill():
-                    print('P', end='')
+                    print('*', end='')
             print("", end='\n')
 
     @staticmethod
