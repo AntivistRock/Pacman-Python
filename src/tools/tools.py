@@ -1,9 +1,9 @@
 from enum import Enum
 
-from config import PACMAN_BASE_POSITION, RED_BASE_POSITION, BLUE_BASE_POSITION, \
-    PINK_BASE_POSITION, YELLOW_BASE_POSITION
-from datastructures import Piece, Empty, Wall, Pill
-from MovingPieces import Pacman, Red, Blue, Pink, Yellow
+from src.tools.config import PACMAN_BASE_POSITION, RED_BASE_POSITION, \
+    BLUE_BASE_POSITION, PINK_BASE_POSITION, YELLOW_BASE_POSITION
+from src.logic.datastructures import Piece, Empty, Wall, Pill
+from src.logic.MovingPieces import Pacman, Red, Blue, Pink, Yellow
 
 
 class MovingPieceType(Enum):

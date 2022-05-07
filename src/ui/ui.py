@@ -16,9 +16,10 @@ def clean_screen():
 class SimpleUI:
 
     @staticmethod
-    def print_(map_):
+    def print_(map_, pills_amount):
 
         clean_screen()
+        print("__Pacman__")
         for row in map_.map:
             for point in row:
 
@@ -38,7 +39,7 @@ class SimpleUI:
                 elif point.is_pill():
                     print('*', end='')
             print("", end='\n')
-
+        print(f"Pills till win {pills_amount}.")
     @staticmethod
     def show_win_message():
         clean_screen()

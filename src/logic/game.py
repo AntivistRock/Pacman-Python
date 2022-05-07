@@ -1,7 +1,7 @@
-from config import PILLS_AMOUNT
-from map import Map
-from tools import MovingPiecesCreator, MovingPieceType
-from ui import get_valid_key, SimpleUI
+from src.tools.config import PILLS_AMOUNT
+from src.logic.map import Map
+from src.tools.tools import MovingPiecesCreator, MovingPieceType
+from src.ui.ui import get_valid_key, SimpleUI
 
 
 class Game:
@@ -41,7 +41,7 @@ class Game:
         while not self._game_finished:
             self._ui.print_(self._map.join_moving_objects_and_background(
                     self.pacman, list(self.ghosts.values())
-                )
+                ), self.pills_amount
             )
 
             key = get_valid_key()

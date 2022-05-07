@@ -1,6 +1,6 @@
 import random
 
-from datastructures import Piece
+from src.logic.datastructures import Piece
 
 
 class MovingPiece(Piece):

@@ -1,7 +1,7 @@
 from copy import deepcopy
 
-from datastructures import Piece, Empty
-from tools import build_piece
+from src.logic.datastructures import Piece, Empty
+from src.tools.tools import build_piece
 
 
 def join_map_and_moving_object(map_, moving_object):
