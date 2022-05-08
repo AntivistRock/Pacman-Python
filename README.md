@@ -42,6 +42,12 @@ sudo apt install -y python3-pip
 git clone https://github.com/AntivistRock/Pacman-Python.git
 ```
 
+Переключитесь на ветку dev:
+
+```bash
+git checkout dev
+```
+
 В скачанной директории выполните:
 
 ```bash
