@@ -1,4 +1,4 @@
-import os
+import replit
 
 
 def get_valid_key():
@@ -10,7 +10,7 @@ def get_valid_key():
 
 
 def clean_screen():
-    os.system('clear')
+    replit.clear()
 
 
 class SimpleUI:
